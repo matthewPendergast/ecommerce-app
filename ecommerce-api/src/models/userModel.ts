@@ -5,17 +5,18 @@ export interface User {
     name: string;
     email: string;
     password: string;
+    role: string;
     created_at?: Date;
 };
 
-export const createUser = async (name: string, email: string, hashedPassword: string): Promise<User> => {
+export const createUser = async (name: string, email: string, hashedPassword: string, role: string = "user"): Promise<User> => {
     const result = await pool.query(
         `
-        INSERT INTO users (name, email, password)
-        VALUES ($1, $2, $3)
-        RETURNING id, name, email, password, created_at
+        INSERT INTO users (name, email, password, role)
+        VALUES ($1, $2, $3, $4)
+        RETURNING id, name, email, password, role, created_at
         `,
-        [name, email, hashedPassword]
+        [name, email, hashedPassword, role]
     );
     return result.rows[0];
 };
