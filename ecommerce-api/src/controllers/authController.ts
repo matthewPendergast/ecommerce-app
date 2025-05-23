@@ -52,7 +52,7 @@ export const login = async (req: Request, res: Response): Promise<any> => {
         const jwtExpiresIn = process.env.JWT_EXPIRES_IN || "1h";
 
         if (!jwtSecret) {
-        throw new Error("JWT_SECRET is not defined");
+            throw new Error("JWT_SECRET is not defined");
         }
 
         const payload = { userId: user.id, email: user.email, role: user.role };
