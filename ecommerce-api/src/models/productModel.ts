@@ -35,3 +35,30 @@ export const createProduct = async (
     );
     return result.rows[0];
 };
+
+export const deleteProductById = async (id: number): Promise<boolean> => {
+    const result = await pool.query("DELETE FROM products WHERE id = $1", [id]);
+    return (result.rowCount ?? 0) > 0;
+};
+
+export const updateProductById = async (
+    id: number,
+    name: string,
+    description: string,
+    price: number,
+    stock: number
+): Promise<Product | null> => {
+    const result = await pool.query(
+        `
+        UPDATE products
+        SET name = $1,
+            description = $2,
+            price = $3,
+            stock = $4
+        WHERE id = $5
+        RETURNING *
+        `,
+        [name, description, price, stock, id]
+    );
+    return result.rows[0] || null;
+};
