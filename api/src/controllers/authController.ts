@@ -45,7 +45,13 @@ export const login = async (req: Request, res: Response): Promise<any> => {
 
         const user = await findUserByEmail(email);
         if (!user) {
-            return res.status(404).json({ error: "User not found."});
+            return res.status(401).json({ error: "User not found."});
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            res.status(401).json({ error: "Invalid credentials." });
+            return;
         }
 
         const jwtSecret = process.env.JWT_SECRET;
