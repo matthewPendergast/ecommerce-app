@@ -6,8 +6,8 @@ A full-stack e-commerce application being built with React, Node, Express, and P
 
 - **MVP Backend**
     - ✅ User routes (signup, login, hashed passwords, JWT auth)
-    - ✅ Product routes (CRUD)
-    - ⬜ Cart routes
+    - ✅ Product routes
+    - ✅ Cart routes
     - ⬜ Order routes
 
 - **MVP Frontend**
