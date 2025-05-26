@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import {
     getCartByUserId,
     clearCartByUserId,
@@ -6,6 +6,7 @@ import {
     removeFromCart,
     updateCartItemQuantity
 } from "../models/cartModel";
+import { createOrder } from "../models/orderModel";
 import { AuthRequest } from "../middlewares/authMiddleware";
 
 export const getCart = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -79,6 +80,32 @@ export const updateCartItem = async (req: AuthRequest, res: Response): Promise<v
         res.status(200).json(updatedItem);
     } catch (err) {
         console.error("Error updating cart item: ", err);
+        res.status(500).json({ error: "Internal server error." });
+    }
+};
+
+export const checkout = async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const cartItems = await getCartByUserId(req.user.userId);
+
+        if (cartItems.length === 0) {
+            res.status(400).json({ error: "Cart is empty." });
+            return;
+        }
+
+        const result = await createOrder(req.user.userId, cartItems);
+
+        res.status(200).json({
+            message: "Checkout complete!",
+            order: {
+                id: result.order.id,
+                total: result.order.total,
+                created_at: result.order.created_at
+            },
+            items: result.items
+        });
+    } catch (err) {
+        console.error("Checkout error: ", err);
         res.status(500).json({ error: "Internal server error." });
     }
 };

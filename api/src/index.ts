@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("E-Commerce API")
+    res.send("E-Commerce API");
 });
 
 app.use("/auth", authRoutes);
@@ -22,5 +22,5 @@ app.use("/products", productRoutes);
 app.use("/cart", cartRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
+    console.log(`Server is running on port ${PORT}`);
 });
