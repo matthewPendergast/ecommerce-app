@@ -2,7 +2,7 @@
 
 A full-stack e-commerce application being built with React, Node, Express, and PostgreSQL.
 
-Users will be able to browse product listings, view details, add products to their cart, and securely checkout with user authentication.
+Features will include being able to browse product listings, view product details, add products to your cart, and securely checkout.
 
 ## Roadmap
 
@@ -14,8 +14,11 @@ Users will be able to browse product listings, view details, add products to the
 - **Frontend - Minimum Viable Product**
     - ⬜ Product listing page
     - ⬜ Product detail view
-    - ⬜ Cart UI
-    - ⬜ User login/signup
+	- ⬜ User signup
+	- ⬜ User login
+    - ⬜ Cart page
+	- ⬜ Checkout page
+	- ⬜ MVP polish
 
 - **Additional Features & Product Readiness**
     - ⬜ Deployment
@@ -114,20 +117,14 @@ Users will be able to browse product listings, view details, add products to the
 - **POST** `/checkout`
     - Finalize cart into a new order and clear cart (protected)
 
-## Folder Structure
+## API Folder Structure
 
 ```
 api/src/
-
 ├── config/
-
 ├── controllers/
-
 ├── middlewares/
-
 ├── models/
-
 ├── routes/
-
 └── index.ts
 ```
