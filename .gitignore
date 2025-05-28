@@ -12,6 +12,7 @@ logs/
 
 # Environment Variables
 .env
+.env.production
 
 # Dependency Directories
 node_modules
