@@ -17,8 +17,7 @@ Features:
 
 - **Frontend - Minimum Viable Product**
     - ✅ Product listing page (fetch products from db)
-    - ⬜ Product detail view
-	- ⬜ User signup
+	- ✅ User signup
 	- ⬜ User login
     - ⬜ Cart page
 	- ⬜ Checkout page
