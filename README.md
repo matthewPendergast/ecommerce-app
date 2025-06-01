@@ -19,7 +19,7 @@ Features:
     - ✅ Product listing page (fetch products from db)
 	- ✅ User signup
 	- ✅ User login
-    - ⬜ Cart page
+    - ✅ Cart page
 	- ⬜ Checkout page
 	- ⬜ MVP polish
 

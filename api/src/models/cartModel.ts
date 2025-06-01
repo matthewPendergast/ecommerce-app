@@ -6,15 +6,23 @@ export interface CartItem {
     product_id: number;
     quantity: number;
     created_at: Date;
-};
+    product_name: string;
+    product_price: string | number;
+    product_stock: number;
+}
 
 export const getCartByUserId = async (userId: number): Promise<CartItem[]> => {
     const result = await pool.query(
         `
-        SELECT ci.*,
-            p.name AS product_name,
-            p.price AS product_price,
-            p.stock AS product_stock
+        SELECT
+		    ci.id,
+			ci.user_id,
+			ci.product_id,
+			ci.quantity,
+			ci.created_at,
+			p.name AS product_name,
+			p.price AS product_price,
+			p.stock AS product_stock
         FROM cart_items ci
         JOIN products p ON ci.product_id = p.id
         WHERE ci.user_id = $1

@@ -14,6 +14,40 @@ export default function Home() {
 	const [error, setError] = useState<string | null>(null);
 	const apiURL = import.meta.env.VITE_API_URL;
 
+	function handleAddToCart(productId: number) {
+		const token = localStorage.getItem("token");
+		if (!token) {
+			alert("Please log in to add items to your cart.");
+			return;
+		}
+
+		fetch(`${apiURL}/cart/add`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				product_id: productId,
+				quantity: 1,
+			}),
+		})
+			.then((res) => {
+				if (!res.ok)
+					throw new Error(
+						`Failed to add to cart (status ${res.status})`,
+					);
+				return res.json();
+			})
+			.then(() => {
+				alert("Item added to cart!");
+			})
+			.catch((err) => {
+				console.error("Add to cart error:", err);
+				alert("Could not add item to cart. Please try again.");
+			});
+	}
+
 	useEffect(() => {
 		fetch(`${apiURL}/products`)
 			.then((res) => {
@@ -49,6 +83,12 @@ export default function Home() {
 					<p className="mt-2 font-bold text-green-600">
 						${product.price}
 					</p>
+					<button
+						onClick={() => handleAddToCart(product.id)}
+						className="mt-3 rounded bg-blue-600 px-4 py-1 text-white hover:bg-blue-700"
+					>
+						Add to Cart
+					</button>
 				</div>
 			))}
 		</div>

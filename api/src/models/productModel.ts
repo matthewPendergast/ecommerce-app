@@ -3,7 +3,7 @@ import { pool } from "../config/db";
 export interface Product {
     id: number;
     name: string;
-    description?: string;
+    description: string;
     price: number;
     stock: number;
     created_at: Date;
